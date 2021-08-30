@@ -1,0 +1,22 @@
+.post {
+  text-align: center;
+  flex-grow: 1;
+  &__title {
+    cursor: default;
+  }
+  &__content {
+    cursor: default;
+    border: 1px solid black;
+    background: white;
+    min-height: 100px;
+    padding: 1em;
+  }
+  &__button {
+    margin-top: 0.5rem;
+    width: 100%;
+    border: 1px solid black;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,29 @@
+.post-form {
+  max-width: 60%;
+  margin: 0 auto;
+  &__label {
+  }
+  &__title-input {
+    box-sizing: border-box;
+    border: 1px solid blue;
+    width: 100%;
+    margin-bottom: 2rem;
+    padding: 10px;
+  }
+  &__content-input {
+    box-sizing: border-box;
+    width: 100%;
+    border: 1px solid green;
+    height: 400px;
+    padding: 10px;
+    margin-bottom: 1.5rem;
+  }
+  &__block {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__delete-button {
+  }
+  &__submit-button {
+  }
+}

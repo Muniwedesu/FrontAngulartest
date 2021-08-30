@@ -1,0 +1,10 @@
+<main class="blog">
+  log: {{log}}
+  <h2 class="blog__title">Блог</h2>
+  <ul class="blog__posts">
+    <li *ngFor="let post of posts$ | async">
+      <app-post [post]="post"></app-post>
+    </li>
+  </ul>
+  <button class="blog__create-button" (click)="onCreate()">Добавить</button>
+</main>
