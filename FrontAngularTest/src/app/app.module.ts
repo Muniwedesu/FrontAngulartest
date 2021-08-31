@@ -6,17 +6,19 @@ import { AppComponent } from './app.component';
 import { PostComponent } from './post/post.component';
 import { PostDetailsComponent } from './post-details/post-details.component';
 import { PostsListComponent } from './posts-list/posts-list.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     PostComponent,
     PostDetailsComponent,
-    PostsListComponent
+    PostsListComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

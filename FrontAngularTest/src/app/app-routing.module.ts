@@ -30,10 +30,14 @@ const routes: Routes = [
     path: "posts/:postID",
     component: PostDetailsComponent
   },
+  {
+    path: "posts/new",
+    component: PostDetailsComponent
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { enableTracing: true })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
