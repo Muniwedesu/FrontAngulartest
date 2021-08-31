@@ -1,0 +1,9 @@
+<div class="modal">
+  <div class="modal__content">
+    Вы действительно хотите удалить пост{{data.title ? " \"" + data.title +"\"" : null}}?
+  </div>
+  <div class="modal__buttons">
+    <button class="button" (click)="onClose(false)">Отменить</button>
+    <button class="button" (click)="onClose(true)">Удалить</button>
+  </div>
+</div>

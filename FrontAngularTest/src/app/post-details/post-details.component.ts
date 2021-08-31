@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { ModalComponent } from '../modal/modal.component';
+
 import { Post } from '../post';
 import { PostDataService } from '../post-data.service';
 
@@ -11,45 +14,48 @@ import { PostDataService } from '../post-data.service';
 export class PostDetailsComponent implements OnInit {
   post: Post = null;
   action: string = "create";
-  constructor(private postData: PostDataService, private route: ActivatedRoute) { }
+  isModalOpened = false;
+
+  constructor(private postData: PostDataService, private route: ActivatedRoute, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     //get post id from router address
     const id = Number(this.route.snapshot.paramMap.get("postID"));
     this.postData.get(id).subscribe(post => {
       if (post.id >= 0) {
-        console.log("existing");
         this.action = "update";
         this.post = post;
       }
       else {
-        console.log("new");
         //implying database will generate id
-        post = new Post(undefined, "new post title", "post content")
+        post = new Post(undefined, "", "")
         this.post = post;
-        //create new
       }
     }
     );
 
   }
   onSubmit() {
-    //send new post obj or update existing and go back
-
-    //I could set action to null and wait until it will be set
-    console.log("submit");
-    //action is selected depending on the received data on init
+    //action will be "create" or "update"
+    //depending on if the post exists
     this.postData[this.action](this.post);
   }
   onDelete() {
-    //send index
-    //if it exists - delete,
-    //if not - just close & don't save
-    console.log("delete");
-    if (this.post.id >= 0) {
-      //if it exists in the database
-      this.postData.delete(this.post.id);
-    }
-  }
+    let modalRef = this.dialog.open(ModalComponent, {
+      height: 'auto',
+      width: '500px',
+      backdropClass: "modal-backdrop",
+      panelClass: "modal-panel",
+      data: { title: this.post.title }
+    });
 
+    modalRef.afterClosed().subscribe(result => {
+      //if approved and post exists in the database
+      if (result && this.post.id >= 0) {
+        this.postData.delete(this.post.id);
+      }
+
+      //navigate to the list
+    });
+  }
 }

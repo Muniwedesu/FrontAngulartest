@@ -34,7 +34,7 @@ export class PostDataService {
     }
   }
   delete(id: number) {
-    console.log(`delete post ${id}`);
-    POSTS.splice(id, 1);
+    console.log(`deleting post ${id}`);
+    POSTS.splice(POSTS.findIndex((p: Post) => p.id === id), 1);
   }
 }

@@ -18,9 +18,5 @@ export class PostComponent implements OnInit {
       this.title = this.post.title;
       this.content = this.post.content;
     }
-
-  }
-  onDetails() {
-    console.log("123");
   }
 }

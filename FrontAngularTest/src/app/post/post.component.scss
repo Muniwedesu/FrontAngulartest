@@ -1,8 +1,10 @@
 .post {
   text-align: center;
   flex-grow: 1;
+  max-width: 250px;
   &__title {
     cursor: default;
+    overflow: hidden;
   }
   &__content {
     cursor: default;
