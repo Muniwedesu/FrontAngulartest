@@ -1,6 +1,6 @@
 <div>
-  <form class="post-form" action="" method="post">
-    <button class="button" routerLink="../">Back</button>
+  <form class="post-form" action="" method="post" (ngSubmit)="onSubmit()">
+    <button class="button button_primary" routerLink="../">Back</button>
     <label class="post-form__label" for="post-title">
       <h2>Запись {{post.title}}</h2>
     </label>
@@ -9,12 +9,14 @@
         name="post-title" id="post-title">
     </div>
     <div class="post-form__block">
+      <!-- doesn't seem that I should care about text wrapping and using textarea -->
       <input [(ngModel)]="post.content" class="post-form__content-input" type="text" placeholder="Содержимое"
         name="post-content" id="post-content">
     </div>
     <div class="post-form__block">
-      <button class="button post-form__delete-button" (click)="onDelete()" type="button">Удалить</button>
-      <button class="button post-form__submit-button" (click)="onSubmit()" type="button">Сохранить</button>
+      <button class="button button_secondary post-form__delete-button" (click)="onDelete()"
+        type="button">Удалить</button>
+      <button class="button button_primary post-form__submit-button" type="submit">Сохранить</button>
     </div>
   </form>
 </div>

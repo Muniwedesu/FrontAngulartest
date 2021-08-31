@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalComponent } from '../modal/modal.component';
 
 import { Post } from '../post';
@@ -14,12 +14,14 @@ import { PostDataService } from '../post-data.service';
 export class PostDetailsComponent implements OnInit {
   post: Post = null;
   action: string = "create";
-  isModalOpened = false;
 
-  constructor(private postData: PostDataService, private route: ActivatedRoute, private dialog: MatDialog) { }
+  constructor(private postData: PostDataService,
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    //get post id from router address
     const id = Number(this.route.snapshot.paramMap.get("postID"));
     this.postData.get(id).subscribe(post => {
       if (post.id >= 0) {
@@ -27,18 +29,20 @@ export class PostDetailsComponent implements OnInit {
         this.post = post;
       }
       else {
-        //implying database will generate id
-        post = new Post(undefined, "", "")
+        //implying id will be generated at the backend
+        post = new Post();
         this.post = post;
       }
-    }
-    );
-
+    });
   }
   onSubmit() {
+    //to cope with nonexistent validations
+    if (!this.post.title) this.post.title = "default";
+    if (!this.post.content) this.post.content = "default";
     //action will be "create" or "update"
     //depending on if the post exists
     this.postData[this.action](this.post);
+    this.router.navigate(["posts"]);
   }
   onDelete() {
     let modalRef = this.dialog.open(ModalComponent, {
@@ -49,13 +53,12 @@ export class PostDetailsComponent implements OnInit {
       data: { title: this.post.title }
     });
 
-    modalRef.afterClosed().subscribe(result => {
-      //if approved and post exists in the database
-      if (result && this.post.id >= 0) {
-        this.postData.delete(this.post.id);
+    modalRef.afterClosed().subscribe(isConfirmed => {
+      if (isConfirmed) {
+        //if post exists in DB - send delete request
+        if (this.post.id >= 0) this.postData.delete(this.post.id);
+        this.router.navigate(["posts"]);
       }
-
-      //navigate to the list
     });
   }
 }

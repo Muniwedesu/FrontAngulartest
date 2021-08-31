@@ -1,24 +1,20 @@
 .post {
   text-align: center;
   flex-grow: 1;
-  max-width: 250px;
+  width: 200px;
   &__title {
     cursor: default;
-    overflow: hidden;
   }
   &__content {
     cursor: default;
     border: 1px solid black;
     background: white;
-    min-height: 100px;
     padding: 1em;
+    overflow: hidden;
+    height: 120px;
   }
   &__button {
     margin-top: 0.5rem;
     width: 100%;
-    border: 1px solid black;
-    &:hover {
-      cursor: pointer;
-    }
   }
 }

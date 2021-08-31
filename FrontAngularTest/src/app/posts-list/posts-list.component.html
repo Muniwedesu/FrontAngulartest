@@ -1,10 +1,9 @@
 <main class="blog">
-  log: {{log}}
-  <h2 class="blog__title">Блог</h2>
+  <h1 class="blog__title">Блог</h1>
   <ul class="blog__posts">
     <li *ngFor="let post of posts$ | async">
       <app-post [post]="post"></app-post>
     </li>
   </ul>
-  <button class="blog__create-button" routerLink="./new">Добавить</button>
+  <button class="button button_primary blog__create-button" routerLink="./new">+ Добавить</button>
 </main>
